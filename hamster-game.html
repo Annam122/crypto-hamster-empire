@@ -1,0 +1,791 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Crypto Hamster Empire&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://telegram.org/js/telegram-web-app.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-bg-color: #17212b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-text-color: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-hint-color: #708499;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-link-color: #6ab7ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-button-color: #5288c1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--tg-theme-button-text-color: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--tg-theme-bg-color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--tg-theme-text-color, white);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-tap-highlight-color: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 2px solid #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: sticky;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 100;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 2px 2px 4px rgba(0,0,0,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.welcome-msg {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stats {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-around;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.main-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(2, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-card:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0.98);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(255,215,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-card.mining {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: mining-glow 2s ease-in-out infinite alternate;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes mining-glow {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { box-shadow: 0 0 10px rgba(0,255,0,0.5); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { box-shadow: 0 0 20px rgba(0,255,0,0.8); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-emoji {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 36px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hamster-type {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mining-rate {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 4px 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-bar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-fill {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(90deg, #00ff00, #ffd700);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: width 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.action-buttons {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: sticky;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 50;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0.95);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #ffd700, #ffed4e);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-secondary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #ff6b6b, #ee5a52);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-success {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #51cf66, #40c057);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-1px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 3px 10px rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-items {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(2, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255,255,255,0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-item:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0.98);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-item:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shop-item-price {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.notifications {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>right: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1000;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.notification {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.9);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: slideIn 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes slideIn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { transform: translateY(-20px); opacity: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { transform: translateY(0); opacity: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.floating-coins {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 999;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: floatUp 2s ease-out forwards;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes floatUp {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>opacity: 1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(0);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(-60px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tabs {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(0.98);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ffd700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab-content.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.invite-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #ff6b6b, #ee5a52);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.invite-bonus {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.telegram-integration {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>right: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.9);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 480px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.hamster-emoji { font-size: 32px; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.title { font-size: 18px; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.btn { font-size: 11px; padding: 10px 6px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="notifications" id="notifications"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="title"&gt;🐹 Crypto Hamster Empire 🐹&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="welcome-msg" id="welcomeMsg"&gt;Welcome, Hamster Trainer!&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="totalCoins"&gt;1000&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Coins&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="totalHamsters"&gt;4&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Hamsters&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="coinsPerSecond"&gt;20&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Coins/sec&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="main-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="tab active" onclick="switchTab('mine')"&gt;⛏️ Mine&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="tab" onclick="switchTab('shop')"&gt;🏪 Shop&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="tab" onclick="switchTab('breed')"&gt;💕 Breed&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="tab" onclick="switchTab('invite')"&gt;👥 Invite&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="mine-tab" class="tab-content active"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="action-buttons"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn btn-success" onclick="collectAll()"&gt;💰 Collect All&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn btn-primary" onclick="boostAll()"&gt;⚡ Boost (100💰)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hamster-grid" id="hamsterGrid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Hamsters populated by JavaScript --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="shop-tab" class="tab-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="shop-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="shop-title"&gt;🏪 Hamster Shop&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="shop-items"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="shop-item" onclick="buyHamster('bitcoin')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;🟡 Bitcoin Hamster&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="shop-item-price"&gt;500 💰&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="shop-item" onclick="buyHamster('ethereum')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;💎 Ethereum Hamster&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="shop-item-price"&gt;1000 💰&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="shop-item" onclick="buyHamster('dogecoin')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;🐕 Dogecoin Hamster&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="shop-item-price"&gt;300 💰&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="shop-item" onclick="buyUpgrade('speed')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;⚡ Speed Upgrade&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="shop-item-price"&gt;200 💰&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="breed-tab" class="tab-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="shop-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="shop-title"&gt;💕 Breeding Center&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p style="text-align: center; margin-bottom: 15px; font-size: 12px;"&gt;Combine hamsters to create rare breeds!&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="action-buttons"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="btn btn-primary" onclick="randomBreed()"&gt;🎲 Random (1000💰)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="btn btn-secondary" onclick="premiumBreed()"&gt;✨ Premium (5000💰)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="text-align: center; margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;small style="font-size: 11px;"&gt;Premium guarantees rare traits!&lt;/small&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="invite-tab" class="tab-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="invite-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="invite-bonus"&gt;🎁 Invite Friends = Free Hamsters!&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="margin-bottom: 15px; font-size: 12px;"&gt;Each friend gives you 500 coins + rare hamster!&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn btn-primary" onclick="inviteFriends()" style="width: 100%;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>📤 Invite Friends via Telegram</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="shop-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="shop-title"&gt;🏆 Your Referrals&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="referralList" style="text-align: center; padding: 20px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="opacity: 0.6; font-size: 12px;"&gt;No referrals yet. Start inviting!&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="telegram-integration"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" onclick="shareAchievement()" style="margin-right: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>📤 Share Progress</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-success" onclick="inviteFriends()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>👥 Invite Friends</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Initialize Telegram Web App</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let tg = window.Telegram?.WebApp;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (tg) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tg.ready();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tg.expand();</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set Telegram theme colors</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (tg.themeParams) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color || '#17212b');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color || '#ffffff');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Get user info</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (tg.initDataUnsafe?.user) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const user = tg.initDataUnsafe.user;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('welcomeMsg').textContent = `Welcome, ${user.first_name}!`;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Save user data for leaderboards</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.player = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>id: user.id,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: user.first_name,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>username: user.username</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Game state</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let gameState = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>coins: 1000,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>hamsters: [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 1, name: "BitCoin", type: "Bitcoin", emoji: "🟡", level: 1, miningRate: 5, progress: 0, lastCollected: Date.now() },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 2, name: "EthMiner", type: "Ethereum", emoji: "💎", level: 1, miningRate: 8, progress: 0, lastCollected: Date.now() },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 3, name: "DoggyDig", type: "Dogecoin", emoji: "🐕", level: 1, miningRate: 3, progress: 0, lastCollected: Date.now() },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 4, name: "ShibaShine", type: "Shiba", emoji: "🦊", level: 1, miningRate: 4, progress: 0, lastCollected: Date.now() }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>speedMultiplier: 1,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>lastUpdate: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">            </span>referrals: [],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>totalEarned: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>player: null</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Load saved game state</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const savedState = localStorage.getItem('cryptoHamsterGame');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (savedState) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const loaded = JSON.parse(savedState);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState = { ...gameState, ...loaded };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function saveGame() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>localStorage.setItem('cryptoHamsterGame', JSON.stringify(gameState));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateDisplay() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('totalCoins').textContent = Math.floor(gameState.coins).toLocaleString();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('totalHamsters').textContent = gameState.hamsters.length;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const coinsPerSecond = gameState.hamsters.reduce((total, hamster) =&gt;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>total + (hamster.miningRate * gameState.speedMultiplier), 0);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('coinsPerSecond').textContent = coinsPerSecond.toFixed(1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderHamsters() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const grid = document.getElementById('hamsterGrid');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid.innerHTML = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.hamsters.forEach(hamster =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const card = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>card.className = 'hamster-card';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (hamster.progress &gt; 0) card.classList.add('mining');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const coinsToCollect = Math.floor(hamster.progress * hamster.miningRate / 10);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>card.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="hamster-emoji"&gt;${hamster.emoji}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="hamster-name"&gt;${hamster.name}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="hamster-type"&gt;${hamster.type} Lv.${hamster.level}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mining-rate"&gt;${(hamster.miningRate * gameState.speedMultiplier).toFixed(1)}/sec&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="progress-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="progress-fill" style="width: ${hamster.progress}%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="btn btn-primary" onclick="collectFromHamster(${hamster.id})" style="width: 100%; font-size: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${coinsToCollect &gt; 0 ? `Collect ${coinsToCollect}💰` : 'Mining...'}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>card.onclick = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (e.target.tagName !== 'BUTTON') {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>levelUpHamster(hamster.id);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid.appendChild(card);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateHamsters() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = Date.now();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const deltaTime = (now - gameState.lastUpdate) / 1000;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.hamsters.forEach(hamster =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hamster.progress = Math.min(100, hamster.progress + (deltaTime * 2));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.lastUpdate = now;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function collectFromHamster(hamsterId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const hamster = gameState.hamsters.find(h =&gt; h.id === hamsterId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (hamster &amp;&amp; hamster.progress &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const coinsEarned = Math.floor(hamster.progress * hamster.miningRate / 10);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins += coinsEarned;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.totalEarned += coinsEarned;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hamster.progress = 0;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>showFloatingCoins(coinsEarned);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`${hamster.name} earned ${coinsEarned}💰!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Haptic feedback for Telegram</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('light');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function collectAll() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let totalEarned = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameState.hamsters.forEach(hamster =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (hamster.progress &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const coinsEarned = Math.floor(hamster.progress * hamster.miningRate / 10);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>totalEarned += coinsEarned;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>hamster.progress = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (totalEarned &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins += totalEarned;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.totalEarned += totalEarned;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showFloatingCoins(totalEarned);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`Collected ${totalEarned}💰 from all hamsters!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Haptic feedback</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('medium');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function boostAll() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.coins &gt;= 100) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= 100;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.speedMultiplier = Math.min(5, gameState.speedMultiplier + 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`⚡ Speed boosted! ${gameState.speedMultiplier}x faster!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('heavy');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>gameState.speedMultiplier = Math.max(1, gameState.speedMultiplier - 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showNotification('⚡ Speed boost expired');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}, 30000);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification('❌ Need 100💰 for boost!');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.notificationOccurred('error');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function levelUpHamster(hamsterId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const hamster = gameState.hamsters.find(h =&gt; h.id === hamsterId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cost = hamster.level * 100;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.coins &gt;= cost) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= cost;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hamster.level++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hamster.miningRate += 2;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`🔥 ${hamster.name} → Level ${hamster.level}!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('medium');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`❌ Need ${cost}💰 to level up ${hamster.name}`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.notificationOccurred('error');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function buyHamster(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prices = { bitcoin: 500, ethereum: 1000, dogecoin: 300 };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const emojis = { bitcoin: '🟡', ethereum: '💎', dogecoin: '🐕' };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rates = { bitcoin: 5, ethereum: 8, dogecoin: 3 };</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cost = prices[type];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.coins &gt;= cost) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= cost;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const newHamster = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>id: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: `${type.charAt(0).toUpperCase() + type.slice(1)} Miner`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type: type.charAt(0).toUpperCase() + type.slice(1),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>emoji: emojis[type],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>level: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>miningRate: rates[type],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>progress: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>lastCollected: Date.now()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.hamsters.push(newHamster);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`🎉 Bought ${type} hamster!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('heavy');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`❌ Need ${cost}💰!`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.notificationOccurred('error');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function buyUpgrade(type) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'speed' &amp;&amp; gameState.coins &gt;= 200) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= 200;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.hamsters.forEach(hamster =&gt; hamster.miningRate += 1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification('🚀 All hamsters +1 mining rate!');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('heavy');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification('❌ Need 200💰!');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.notificationOccurred('error');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function randomBreed() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.coins &gt;= 1000 &amp;&amp; gameState.hamsters.length &gt;= 2) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= 1000;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const rareEmojis = ['🌟', '⭐', '🎆', '🔥', '💫'];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const rareNames = ['StarMiner', 'CosmicDigger', 'FireHamster', 'GalaxyMiner', 'NebulaDig'];</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const newHamster = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>id: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: rareNames[Math.floor(Math.random() * rareNames.length)],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type: 'Rare',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>emoji: rareEmojis[Math.floor(Math.random() * rareEmojis.length)],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>level: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>miningRate: 10 + Math.floor(Math.random() * 5),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>progress: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>lastCollected: Date.now()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.hamsters.push(newHamster);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification(`✨ Bred rare ${newHamster.name}!`);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (tg) tg.HapticFeedback.impactOccurred('heavy');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderHamsters();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>saveGame();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotification('❌ Need 1000💰 &amp; 2+ hamsters!');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function premiumBreed() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (gameState.coins &gt;= 5000 &amp;&amp; gameState.hamsters.length &gt;= 2) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>gameState.coins -= 5000;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const legendaryEmojis = ['👑', '💎', '🏆', '⚡', '🌈'];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const legendaryNames = ['KingHamster', 'DiamondDigger', 'ChampionMiner', 'ThunderHam', 'RainbowMiner'];</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const newHamster = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>id: Date.now(),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: legendaryNames[Math.floor(Math.random() * legendaryNames.length)],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type: 'Legendary',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>emoji: legendaryEmojis[Math.floor(Math.random() * legendaryEmojis.length)],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>level: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>miningRate: 20 + Math.floor(Math.random() * 10),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>progress: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>lastCollected: Date.now()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+</body>
+</html>
