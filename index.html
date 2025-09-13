@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Hamster Empire</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -11,750 +11,1111 @@
             padding: 0;
             box-sizing: border-box;
             user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
-            padding: 0;
-            margin: 0;
+            overflow-x: hidden;
+            color: white;
         }
-
+        
         .container {
             max-width: 400px;
             margin: 0 auto;
             padding: 10px;
-            min-height: 100vh;
         }
-
-        .telegram-status {
-            background: rgba(0,255,0,0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 12px;
-            border: 1px solid rgba(0,255,0,0.3);
-        }
-
+        
         .header {
             text-align: center;
-            padding: 20px 0;
-            background: rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            margin-bottom: 15px;
             backdrop-filter: blur(10px);
         }
-
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .welcome-msg {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .stats {
+        
+        .coin-counter {
             display: flex;
-            justify-content: space-around;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 18px;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
             font-weight: bold;
-            color: #FFD700;
+            margin: 10px 0;
+            color: #ffd700;
         }
-
-        .stat-label {
-            font-size: 11px;
-            opacity: 0.8;
-            margin-top: 5px;
+        
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            margin: 20px 0;
+            padding: 5px;
+            overflow-x: auto;
         }
-
-        .hamster-grid {
+        
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffd700;
+        }
+        
+        .tab-content {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* HAMSTER FARM STYLES */
+        .hamsters-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin: 20px 0;
         }
-
-        .hamster-card {
-            background: rgba(255,255,255,0.15);
+        
+        .hamster {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 15px;
             text-align: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             border: 2px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
-
-        .hamster-card:active {
-            transform: scale(0.95);
+        
+        .hamster:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-
-        .hamster-card:hover {
-            transform: translateY(-3px);
-            border-color: #FFD700;
-            box-shadow: 0 10px 20px rgba(255,215,0,0.3);
+        
+        .hamster.mining {
+            border-color: #ffd700;
+            animation: mining 2s infinite;
         }
-
-        .hamster-card.mining {
-            border-color: #00ff00;
-            animation: mining-pulse 2s ease-in-out infinite alternate;
+        
+        @keyframes mining {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-
-        @keyframes mining-pulse {
-            from { box-shadow: 0 0 10px rgba(0,255,0,0.3); }
-            to { box-shadow: 0 0 20px rgba(0,255,0,0.6); }
-        }
-
-        .hamster-icon {
-            font-size: 36px;
-            margin-bottom: 8px;
+        
+        .hamster-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
             display: block;
         }
-
-        .hamster-name {
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 13px;
-        }
-
-        .hamster-level {
-            font-size: 11px;
-            color: #FFD700;
-            margin-bottom: 8px;
-        }
-
-        .mining-rate {
-            background: rgba(0,0,0,0.3);
-            padding: 3px 6px;
-            border-radius: 10px;
-            font-size: 10px;
-            margin-bottom: 8px;
-        }
-
-        .progress-bar {
-            background: rgba(255,255,255,0.2);
-            height: 6px;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #FFD700, #FFA500);
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
+        
         .collect-btn {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
             border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 10px;
-            padding: 6px 8px;
-            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .collect-btn:active {
-            transform: scale(0.95);
-        }
-
-        .collect-btn:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .main-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            padding: 12px;
+            margin-top: 10px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-
-        .main-btn:active {
-            transform: scale(0.95);
+        
+        .collect-btn:hover {
+            transform: scale(1.05);
         }
-
-        .collect-all-btn {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            grid-column: 1 / -1;
+        
+        /* SPINNING WHEEL STYLES */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
-
-        .boost-btn {
-            background: linear-gradient(45deg, #ffc107, #fd7e14);
+        
+        .wheel {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            position: relative;
+            background: conic-gradient(
+                #ff6b6b 0deg 45deg,
+                #4ecdc4 45deg 90deg,
+                #45b7d1 90deg 135deg,
+                #96ceb4 135deg 180deg,
+                #feca57 180deg 225deg,
+                #ff9ff3 225deg 270deg,
+                #54a0ff 270deg 315deg,
+                #5f27cd 315deg 360deg
+            );
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            border: 8px solid #fff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
         }
-
-        .notification {
-            position: fixed;
-            top: 20px;
+        
+        .wheel::before {
+            content: '';
+            position: absolute;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            z-index: 2000;
-            opacity: 0;
-            transition: all 0.3s ease;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #fff;
+            z-index: 10;
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            max-width: 90%;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .spin-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .spin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .spin-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .spins-left {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 10px;
+        }
+        
+        /* RUNNER GAME STYLES */
+        .runner-game {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .runner-hamster {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            font-size: 40px;
+            z-index: 10;
+            transition: bottom 0.3s ease;
+        }
+        
+        .runner-hamster.jumping {
+            bottom: 120px;
+        }
+        
+        .obstacle {
+            position: absolute;
+            bottom: 50px;
+            right: -50px;
+            font-size: 30px;
+            animation: moveLeft 3s linear infinite;
+        }
+        
+        @keyframes moveLeft {
+            from { right: -50px; }
+            to { right: 100%; }
+        }
+        
+        .coin-runner {
+            position: absolute;
+            top: 80px;
+            right: -30px;
+            font-size: 25px;
+            animation: moveLeft 2.5s linear infinite;
+        }
+        
+        .runner-controls {
             text-align: center;
+            margin: 20px 0;
         }
-
-        .notification.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(10px);
+        
+        .jump-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
-
-        .debug-info {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+        
+        .runner-score {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: rgba(0,0,0,0.8);
             color: white;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 9px;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            display: none;
         }
-
-        .floating-coins {
-            position: fixed;
-            pointer-events: none;
-            z-index: 999;
-            font-size: 16px;
+        
+        .restart-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
             font-weight: bold;
-            color: #FFD700;
-            animation: floatUp 2s ease-out forwards;
+            cursor: pointer;
+            margin-top: 15px;
         }
-
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+        
+        /* SHOP STYLES */
+        .shop-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .speed-boost-active {
-            animation: boostGlow 1s ease-in-out infinite alternate;
+        
+        .shop-item-info {
+            display: flex;
+            align-items: center;
         }
-
-        @keyframes boostGlow {
-            0% { box-shadow: 0 0 15px rgba(255,193,7,0.5); }
-            100% { box-shadow: 0 0 25px rgba(255,193,7,0.8); }
+        
+        .shop-item-emoji {
+            font-size: 30px;
+            margin-right: 15px;
         }
-
-        @media (max-width: 360px) {
-            .container { padding: 8px; }
-            .hamster-icon { font-size: 32px; }
-            .title { font-size: 20px; }
-            .main-btn { font-size: 12px; padding: 10px; }
+        
+        .buy-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .buy-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        /* PRIZES STYLES */
+        .prize-pool {
+            text-align: center;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid #ffd700;
+        }
+        
+        .daily-prize {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .claim-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .timer {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 380px) {
+            .wheel {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .runner-game {
+                height: 250px;
+            }
+            
+            .tab {
+                font-size: 10px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="telegram-status" id="telegramStatus">
-            🔄 Initializing Telegram connection...
-        </div>
-        
+        <!-- Header -->
         <div class="header">
-            <div class="title">🐹 Crypto Hamster Empire</div>
-            <div class="welcome-msg" id="welcomeMsg">Build Your Mining Dynasty!</div>
+            <h1>🐹 Crypto Hamster Empire</h1>
+            <div class="coin-counter">
+                🪙 <span id="coinCount">1000</span>
+            </div>
+            <div id="telegramStatus" class="status browser">⚠️ Loading...</div>
         </div>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-value" id="totalCoins">1000</div>
-                <div class="stat-label">💰 Coins</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="totalHamsters">4</div>
-                <div class="stat-label">🐹 Hamsters</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="totalIncome">160</div>
-                <div class="stat-label">⚡ Per Min</div>
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('farm')">🏠 Farm</div>
+            <div class="tab" onclick="switchTab('casino')">🎰 Casino</div>
+            <div class="tab" onclick="switchTab('runner')">🏃 Runner</div>
+            <div class="tab" onclick="switchTab('shop')">🛒 Shop</div>
+            <div class="tab" onclick="switchTab('prizes')">🏆 Prizes</div>
+        </div>
+
+        <!-- HAMSTER FARM TAB -->
+        <div id="farm" class="tab-content active">
+            <h2>🐹 Your Hamster Miners</h2>
+            <div class="hamsters-grid" id="hamstersGrid">
+                <!-- Hamsters will be generated here -->
             </div>
         </div>
 
-        <div class="hamster-grid" id="hamsterGrid"></div>
+        <!-- CASINO TAB -->
+        <div id="casino" class="tab-content">
+            <h2>🎰 Lucky Spin Casino</h2>
+            <div class="wheel-container">
+                <div class="spins-left">
+                    Free Spins Left: <span id="spinsLeft">3</span>
+                    <button onclick="watchAd()" style="margin-left: 10px; padding: 5px 10px; border: none; border-radius: 15px; background: #4CAF50; color: white; cursor: pointer;">Watch Ad (+1 Spin)</button>
+                </div>
+                
+                <div class="wheel" id="wheel">
+                    <div class="wheel-segment" style="transform: rotate(22.5deg) translate(70px) rotate(-22.5deg);">100🪙</div>
+                    <div class="wheel-segment" style="transform: rotate(67.5deg) translate(70px) rotate(-67.5deg);">🐹</div>
+                    <div class="wheel-segment" style="transform: rotate(112.5deg) translate(70px) rotate(-112.5deg);">500🪙</div>
+                    <div class="wheel-segment" style="transform: rotate(157.5deg) translate(70px) rotate(-157.5deg);">⚡</div>
+                    <div class="wheel-segment" style="transform: rotate(202.5deg) translate(70px) rotate(-202.5deg);">1000🪙</div>
+                    <div class="wheel-segment" style="transform: rotate(247.5deg) translate(70px) rotate(-247.5deg);">🎁</div>
+                    <div class="wheel-segment" style="transform: rotate(292.5deg) translate(70px) rotate(-292.5deg);">2000🪙</div>
+                    <div class="wheel-segment" style="transform: rotate(337.5deg) translate(70px) rotate(-337.5deg);">💎</div>
+                </div>
+                
+                <button class="spin-btn" onclick="spinWheel()" id="spinBtn">
+                    🎰 SPIN NOW! (Cost: FREE)
+                </button>
+                
+                <div id="wheelResult" style="text-align: center; margin: 10px 0; font-weight: bold; color: #ffd700;"></div>
+            </div>
+        </div>
 
-        <div class="buttons">
-            <button class="main-btn collect-all-btn" onclick="collectAll()">
-                💰 Collect All
-            </button>
-            <button class="main-btn boost-btn" onclick="speedBoost()" id="boostBtn">
-                ⚡ Boost (100💰)
-            </button>
+        <!-- RUNNER GAME TAB -->
+        <div id="runner" class="tab-content">
+            <h2>🏃 Hamster Runner</h2>
+            <div class="runner-score">
+                Score: <span id="runnerScore">0</span> | High Score: <span id="highScore">0</span>
+            </div>
+            
+            <div class="runner-game" id="runnerGame">
+                <div class="runner-hamster" id="runnerHamster">🐹</div>
+                <div class="game-over" id="gameOver">
+                    <h3>Game Over!</h3>
+                    <p>Score: <span id="finalScore">0</span></p>
+                    <p>Coins Earned: <span id="coinsEarned">0</span>🪙</p>
+                    <button class="restart-btn" onclick="startRunnerGame()">Play Again</button>
+                </div>
+            </div>
+            
+            <div class="runner-controls">
+                <button class="jump-btn" onmousedown="jump()" ontouchstart="jump()">JUMP!</button>
+                <button class="jump-btn" onclick="startRunnerGame()" style="margin-left: 10px;">Start Game</button>
+            </div>
+        </div>
+
+        <!-- SHOP TAB -->
+        <div id="shop" class="tab-content">
+            <h2>🛒 Hamster Shop</h2>
+            <div id="shopItems">
+                <!-- Shop items will be generated here -->
+            </div>
+        </div>
+
+        <!-- PRIZES TAB -->
+        <div id="prizes" class="tab-content">
+            <h2>🏆 Daily Prizes & Rewards</h2>
+            
+            <div class="prize-pool">
+                <h3>💰 Global Prize Pool</h3>
+                <div style="font-size: 24px; margin: 10px 0;">🪙 <span id="globalPool">50,000</span></div>
+                <p>Grows every hour!</p>
+            </div>
+            
+            <div class="daily-prize">
+                <h4>🎁 Daily Login Bonus</h4>
+                <p>Day <span id="loginDay">1</span> Reward: <span id="dailyReward">100</span>🪙</p>
+                <div class="timer">Next bonus in: <span id="bonusTimer">23:45:12</span></div>
+                <button class="claim-btn" onclick="claimDaily()" id="claimBtn">Claim Reward!</button>
+            </div>
+            
+            <div class="daily-prize">
+                <h4>🏆 Weekly Tournament</h4>
+                <p>1st Place: 10,000🪙 + Rare Hamster</p>
+                <p>Your Rank: #<span id="userRank">247</span></p>
+                <button class="claim-btn" onclick="joinTournament()">Join Tournament</button>
+            </div>
+            
+            <div class="daily-prize">
+                <h4>🎯 Achievement Rewards</h4>
+                <p>✅ First 1,000 coins: +100🪙</p>
+                <p>⏳ Own 5 hamsters: +500🪙</p>
+                <p>⏳ Spin wheel 10 times: +Golden Hamster</p>
+                <button class="claim-btn" onclick="checkAchievements()">Check Progress</button>
+            </div>
         </div>
     </div>
 
-    <div class="notification" id="notification"></div>
-    <div class="debug-info" id="debugInfo">Loading game...</div>
-
     <script>
-        // Initialize Telegram Web App
-        let tg = null;
-        let telegramUser = null;
-        let isInTelegram = false;
-
-        // Check if we're in Telegram
-        function initializeTelegram() {
-            const telegramStatus = document.getElementById('telegramStatus');
-            
-            setTimeout(() => {
-                try {
-                    if (window.Telegram && window.Telegram.WebApp) {
-                        tg = window.Telegram.WebApp;
-                        isInTelegram = true;
-                        
-                        // Initialize Telegram Web App
-                        tg.ready();
-                        tg.expand();
-                        
-                        // Apply Telegram theme if available
-                        if (tg.themeParams) {
-                            if (tg.themeParams.bg_color) {
-                                document.body.style.background = tg.themeParams.bg_color;
-                            }
-                            if (tg.themeParams.text_color) {
-                                document.body.style.color = tg.themeParams.text_color;
-                            }
-                        }
-                        
-                        // Get user info
-                        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                            telegramUser = tg.initDataUnsafe.user;
-                            document.getElementById('welcomeMsg').textContent = `Welcome, ${telegramUser.first_name}! 🎉`;
-                            telegramStatus.innerHTML = `✅ Connected as ${telegramUser.first_name}`;
-                            telegramStatus.style.background = 'rgba(0,255,0,0.2)';
-                            telegramStatus.style.borderColor = 'rgba(0,255,0,0.5)';
-                            
-                            // Save user to game state
-                            gameState.telegramUser = telegramUser;
-                        } else {
-                            telegramStatus.innerHTML = '✅ Telegram Web App loaded';
-                            telegramStatus.style.background = 'rgba(255,255,0,0.2)';
-                            telegramStatus.style.borderColor = 'rgba(255,255,0,0.5)';
-                        }
-                        
-                        // Hide after 3 seconds
-                        setTimeout(() => {
-                            telegramStatus.style.display = 'none';
-                        }, 3000);
-                        
-                    } else {
-                        // Not in Telegram or script failed to load
-                        telegramStatus.innerHTML = '🌐 Running in browser mode';
-                        telegramStatus.style.background = 'rgba(33,150,243,0.2)';
-                        telegramStatus.style.borderColor = 'rgba(33,150,243,0.5)';
-                        
-                        // Hide after 3 seconds
-                        setTimeout(() => {
-                            telegramStatus.style.display = 'none';
-                        }, 3000);
-                    }
-                } catch (error) {
-                    telegramStatus.innerHTML = '⚠️ Browser mode (Telegram unavailable)';
-                    telegramStatus.style.background = 'rgba(255,0,0,0.2)';
-                    telegramStatus.style.borderColor = 'rgba(255,0,0,0.5)';
-                    
-                    setTimeout(() => {
-                        telegramStatus.style.display = 'none';
-                    }, 3000);
-                }
-            }, 500);
-        }
-
         // Game State
         let gameState = {
             coins: 1000,
-            hamsters: [
-                { id: 1, name: "Bitcoin Miner", icon: "🟠", level: 1, baseRate: 50, progress: 0, lastCollected: Date.now() },
-                { id: 2, name: "Ethereum Digger", icon: "💎", level: 1, baseRate: 40, progress: 0, lastCollected: Date.now() },
-                { id: 3, name: "Dogecoin Hamster", icon: "🐕", level: 1, baseRate: 30, progress: 0, lastCollected: Date.now() },
-                { id: 4, name: "Litecoin Miner", icon: "⚡", level: 1, baseRate: 35, progress: 0, lastCollected: Date.now() }
-            ],
-            speedBoostActive: false,
-            speedBoostEnd: 0,
-            totalEarned: 0,
-            lastUpdate: Date.now(),
-            telegramUser: null
+            hamsters: [],
+            spinsLeft: 3,
+            runnerScore: 0,
+            highScore: localStorage.getItem('hamster-high-score') || 0,
+            runnerActive: false,
+            dailyLoginDay: 1,
+            lastLogin: null,
+            achievements: {
+                first1000: false,
+                own5hamsters: false,
+                spin10times: false,
+                spinCount: 0
+            }
         };
 
-        // Load saved game
-        function loadGame() {
-            try {
-                const saved = localStorage.getItem('cryptoHamsterEmpire');
-                if (saved) {
-                    const savedState = JSON.parse(saved);
-                    gameState = { ...gameState, ...savedState };
-                    
-                    // Calculate offline earnings (max 8 hours)
-                    const offlineTime = Math.min(Date.now() - gameState.lastUpdate, 8 * 60 * 60 * 1000);
-                    const offlineMinutes = offlineTime / (60 * 1000);
-                    const totalMinuteRate = gameState.hamsters.reduce((sum, h) => sum + (h.baseRate + (h.level - 1) * 10), 0);
-                    const offlineEarnings = Math.floor(offlineMinutes * totalMinuteRate / 60);
-                    
-                    if (offlineEarnings > 0) {
-                        gameState.coins += offlineEarnings;
-                        showNotification(`💰 Welcome back! Earned ${offlineEarnings} coins offline!`);
-                    }
+        // Telegram WebApp Integration
+        let tg = null;
+        let user = null;
+
+        window.addEventListener('load', function() {
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                tg = Telegram.WebApp;
+                tg.ready();
+                user = tg.initDataUnsafe?.user;
+                
+                if (user) {
+                    document.getElementById('telegramStatus').innerHTML = `✅ Welcome ${user.first_name}!`;
+                    document.getElementById('telegramStatus').className = 'status connected';
+                } else if (tg) {
+                    document.getElementById('telegramStatus').innerHTML = '✅ Telegram Web App loaded';
+                    document.getElementById('telegramStatus').className = 'status loaded';
                 }
-            } catch (error) {
-                console.log('Starting fresh game');
-            }
-            
-            updateDisplay();
-            renderHamsters();
-        }
-
-        // Save game
-        function saveGame() {
-            try {
-                gameState.lastUpdate = Date.now();
-                localStorage.setItem('cryptoHamsterEmpire', JSON.stringify(gameState));
-            } catch (error) {
-                console.log('Could not save game');
-            }
-        }
-
-        // Update debug info
-        function updateDebugInfo() {
-            const debugInfo = document.getElementById('debugInfo');
-            const now = new Date();
-            debugInfo.innerHTML = `
-                🕐 ${now.toLocaleTimeString()} | 
-                📱 ${window.innerWidth}×${window.innerHeight} | 
-                ${isInTelegram ? '📱 Telegram' : '🌐 Browser'} | 
-                💾 Autosave: ON
-            `;
-        }
-
-        // Update display
-        function updateDisplay() {
-            document.getElementById('totalCoins').textContent = Math.floor(gameState.coins).toLocaleString();
-            document.getElementById('totalHamsters').textContent = gameState.hamsters.length;
-            
-            const totalIncome = gameState.hamsters.reduce((total, hamster) => {
-                return total + (hamster.baseRate + (hamster.level - 1) * 10);
-            }, 0);
-            document.getElementById('totalIncome').textContent = totalIncome;
-            
-            // Update boost button
-            const boostBtn = document.getElementById('boostBtn');
-            if (gameState.speedBoostActive && Date.now() < gameState.speedBoostEnd) {
-                const timeLeft = Math.ceil((gameState.speedBoostEnd - Date.now()) / 1000);
-                boostBtn.innerHTML = `⚡ Boosted (${timeLeft}s)`;
-                boostBtn.disabled = true;
-                document.body.classList.add('speed-boost-active');
             } else {
-                boostBtn.innerHTML = '⚡ Boost (100💰)';
-                boostBtn.disabled = gameState.coins < 100;
-                document.body.classList.remove('speed-boost-active');
-                gameState.speedBoostActive = false;
+                document.getElementById('telegramStatus').innerHTML = '⚠️ Browser mode';
+                document.getElementById('telegramStatus').className = 'status browser';
+            }
+            
+            initGame();
+        });
+
+        function initGame() {
+            // Initialize hamsters
+            gameState.hamsters = [
+                { name: 'Crypto', emoji: '🐹', rate: 10, earnings: 0, type: 'basic' },
+                { name: 'Bitcoin', emoji: '🐹', rate: 25, earnings: 0, type: 'rare' },
+                { name: 'Ethereum', emoji: '🐹', rate: 15, earnings: 0, type: 'basic' },
+                { name: 'Doge', emoji: '🐹', rate: 30, earnings: 0, type: 'epic' }
+            ];
+            
+            renderHamsters();
+            renderShop();
+            updateUI();
+            startMining();
+            updatePrizes();
+            
+            // Update coins every second
+            setInterval(() => {
+                updateUI();
+                updatePrizes();
+            }, 1000);
+        }
+
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Haptic feedback
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
             }
         }
 
-        // Render hamsters
         function renderHamsters() {
-            const grid = document.getElementById('hamsterGrid');
-            grid.innerHTML = '';
-            
-            gameState.hamsters.forEach(hamster => {
-                const card = document.createElement('div');
-                card.className = 'hamster-card';
-                if (hamster.progress > 0 && hamster.progress < 100) {
-                    card.classList.add('mining');
-                }
-                
-                const income = hamster.baseRate + (hamster.level - 1) * 10;
-                const actualIncome = gameState.speedBoostActive ? Math.floor(income * 1.5) : income;
-                const canCollect = hamster.progress >= 100;
-                const coinsToCollect = canCollect ? actualIncome : 0;
-                
-                card.innerHTML = `
-                    <div class="hamster-icon">${hamster.icon}</div>
+            const grid = document.getElementById('hamstersGrid');
+            grid.innerHTML = gameState.hamsters.map((hamster, index) => `
+                <div class="hamster mining">
+                    <div class="hamster-emoji">${hamster.emoji}</div>
                     <div class="hamster-name">${hamster.name}</div>
-                    <div class="hamster-level">Level ${hamster.level}</div>
-                    <div class="mining-rate">${actualIncome}/min</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${hamster.progress}%" id="progress-${hamster.id}"></div>
-                    </div>
-                    <button class="collect-btn" onclick="collectFromHamster(${hamster.id}, event)" ${!canCollect ? 'disabled' : ''}>
-                        ${canCollect ? `Collect ${coinsToCollect}💰` : `Mining... ${Math.floor(hamster.progress)}%`}
+                    <div class="hamster-rate">${hamster.rate} coins/min</div>
+                    <div style="color: #4CAF50; margin: 5px 0;">+${hamster.earnings}🪙</div>
+                    <button class="collect-btn" onclick="collectHamster(${index})">
+                        Collect
                     </button>
-                `;
-                
-                // Add click handler for leveling up
-                card.addEventListener('click', (e) => {
-                    if (e.target.tagName !== 'BUTTON') {
-                        levelUpHamster(hamster.id);
-                    }
+                </div>
+            `).join('');
+        }
+
+        function renderShop() {
+            const shopItems = [
+                { name: 'Speed Hamster', emoji: '⚡', price: 1000, rate: 50, type: 'epic' },
+                { name: 'Golden Hamster', emoji: '💰', price: 2500, rate: 100, type: 'legendary' },
+                { name: 'Robot Hamster', emoji: '🤖', price: 5000, rate: 200, type: 'legendary' },
+                { name: 'Diamond Hamster', emoji: '💎', price: 10000, rate: 500, type: 'mythic' }
+            ];
+            
+            const shop = document.getElementById('shopItems');
+            shop.innerHTML = shopItems.map((item, index) => `
+                <div class="shop-item">
+                    <div class="shop-item-info">
+                        <div class="shop-item-emoji">${item.emoji}</div>
+                        <div>
+                            <div style="font-weight: bold;">${item.name}</div>
+                            <div style="color: #4CAF50;">${item.rate} coins/min</div>
+                        </div>
+                    </div>
+                    <button class="buy-btn" onclick="buyHamster(${index})" ${gameState.coins < item.price ? 'disabled' : ''}>
+                        ${item.price}🪙
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function startMining() {
+            setInterval(() => {
+                gameState.hamsters.forEach(hamster => {
+                    hamster.earnings += Math.floor(hamster.rate / 60); // Per second
+                });
+                renderHamsters();
+            }, 1000);
+        }
+
+        function collectHamster(index) {
+            const hamster = gameState.hamsters[index];
+            gameState.coins += hamster.earnings;
+            hamster.earnings = 0;
+            updateUI();
+            renderHamsters();
+            
+            // Haptic feedback
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
+        }
+
+        function buyHamster(shopIndex) {
+            const shopItems = [
+                { name: 'Speed Hamster', emoji: '⚡', price: 1000, rate: 50, type: 'epic' },
+                { name: 'Golden Hamster', emoji: '💰', price: 2500, rate: 100, type: 'legendary' },
+                { name: 'Robot Hamster', emoji: '🤖', price: 5000, rate: 200, type: 'legendary' },
+                { name: 'Diamond Hamster', emoji: '💎', price: 10000, rate: 500, type: 'mythic' }
+            ];
+            
+            const item = shopItems[shopIndex];
+            if (gameState.coins >= item.price) {
+                gameState.coins -= item.price;
+                gameState.hamsters.push({
+                    name: item.name,
+                    emoji: item.emoji,
+                    rate: item.rate,
+                    earnings: 0,
+                    type: item.type
                 });
                 
-                grid.appendChild(card);
+                updateUI();
+                renderHamsters();
+                renderShop();
                 
-                // Start mining if not complete
-                if (hamster.progress < 100) {
-                    startMining(hamster.id);
+                // Haptic feedback
+                if (tg && tg.HapticFeedback) {
+                    tg.HapticFeedback.impactOccurred('heavy');
                 }
-            });
+            }
         }
 
-        // Start mining animation
-        function startMining(hamsterId) {
-            const hamster = gameState.hamsters.find(h => h.id === hamsterId);
-            if (!hamster || hamster.progress >= 100) return;
+        // CASINO SPINNING WHEEL
+        function spinWheel() {
+            if (gameState.spinsLeft <= 0) return;
             
-            const miningSpeed = gameState.speedBoostActive ? 3 : 1; // 3x faster with boost
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
             
-            const miningInterval = setInterval(() => {
-                hamster.progress = Math.min(100, hamster.progress + (2 * miningSpeed));
+            spinBtn.disabled = true;
+            gameState.spinsLeft--;
+            gameState.achievements.spinCount++;
+            
+            // Random spin
+            const spins = Math.floor(Math.random() * 8) + 8; // 8-16 full rotations
+            const finalDegree = Math.floor(Math.random() * 360);
+            const totalRotation = (spins * 360) + finalDegree;
+            
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+            
+            setTimeout(() => {
+                const prizes = [
+                    { name: '100🪙', value: 100, type: 'coins' },
+                    { name: '🐹', value: 1, type: 'hamster' },
+                    { name: '500🪙', value: 500, type: 'coins' },
+                    { name: '⚡', value: 1, type: 'boost' },
+                    { name: '1000🪙', value: 1000, type: 'coins' },
+                    { name: '🎁', value: 1, type: 'mystery' },
+                    { name: '2000🪙', value: 2000, type: 'coins' },
+                    { name: '💎', value: 1, type: 'diamond' }
+                ];
                 
-                const progressBar = document.getElementById(`progress-${hamsterId}`);
-                if (progressBar) {
-                    progressBar.style.width = hamster.progress + '%';
+                const segment = Math.floor((360 - (finalDegree % 360)) / 45);
+                const prize = prizes[segment] || prizes[0];
+                
+                givePrize(prize);
+                
+                document.getElementById('spinsLeft').textContent = gameState.spinsLeft;
+                spinBtn.disabled = false;
+                
+                if (gameState.spinsLeft > 0) {
+                    spinBtn.textContent = '🎰 SPIN AGAIN! (FREE)';
+                } else {
+                    spinBtn.textContent = '🎰 Watch Ad for Spin';
+                    spinBtn.onclick = watchAd;
                 }
                 
-                // Update button text
-                const card = progressBar?.closest('.hamster-card');
-                const button = card?.querySelector('.collect-btn');
-                if (button && hamster.progress < 100) {
-                    button.innerHTML = `Mining... ${Math.floor(hamster.progress)}%`;
+                // Haptic feedback
+                if (tg && tg.HapticFeedback) {
+                    tg.HapticFeedback.impactOccurred('heavy');
                 }
+            }, 4000);
+        }
+
+        function givePrize(prize) {
+            const result = document.getElementById('wheelResult');
+            
+            switch(prize.type) {
+                case 'coins':
+                    gameState.coins += prize.value;
+                    result.innerHTML = `🎉 WON ${prize.value} COINS!`;
+                    break;
+                case 'hamster':
+                    gameState.hamsters.push({
+                        name: 'Lucky',
+                        emoji: '🍀',
+                        rate: 35,
+                        earnings: 0,
+                        type: 'rare'
+                    });
+                    result.innerHTML = `🎉 WON LUCKY HAMSTER!`;
+                    renderHamsters();
+                    break;
+                case 'diamond':
+                    gameState.hamsters.push({
+                        name: 'Diamond',
+                        emoji: '💎',
+                        rate: 150,
+                        earnings: 0,
+                        type: 'legendary'
+                    });
+                    result.innerHTML = `🎉 WON DIAMOND HAMSTER!`;
+                    renderHamsters();
+                    break;
+                default:
+                    gameState.coins += 250;
+                    result.innerHTML = `🎉 MYSTERY PRIZE: 250 COINS!`;
+            }
+            
+            updateUI();
+            
+            setTimeout(() => {
+                result.innerHTML = '';
+            }, 3000);
+        }
+
+        function watchAd() {
+            // Simulate watching an ad
+            gameState.spinsLeft++;
+            document.getElementById('spinsLeft').textContent = gameState.spinsLeft;
+            
+            const spinBtn = document.getElementById('spinBtn');
+            spinBtn.textContent = '🎰 SPIN NOW! (FREE)';
+            spinBtn.onclick = spinWheel;
+            
+            // In real app, this would show an actual ad
+            alert('📺 Thanks for watching the ad! +1 Free Spin');
+        }
+
+        // HAMSTER RUNNER GAME
+        let runnerInterval;
+        let obstacleInterval;
+        let coinInterval;
+
+        function startRunnerGame() {
+            gameState.runnerActive = true;
+            gameState.runnerScore = 0;
+            
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('runnerHamster').classList.remove('jumping');
+            
+            // Clear existing intervals
+            clearInterval(runnerInterval);
+            clearInterval(obstacleInterval);
+            clearInterval(coinInterval);
+            
+            // Remove existing obstacles and coins
+            document.querySelectorAll('.obstacle, .coin-runner').forEach(el => el.remove());
+            
+            // Start game loop
+            runnerInterval = setInterval(() => {
+                if (gameState.runnerActive) {
+                    gameState.runnerScore += 10;
+                    document.getElementById('runnerScore').textContent = gameState.runnerScore;
+                }
+            }, 100);
+            
+            // Spawn obstacles
+            obstacleInterval = setInterval(() => {
+                if (gameState.runnerActive) {
+                    createObstacle();
+                }
+            }, 2000);
+            
+            // Spawn coins
+            coinInterval = setInterval(() => {
+                if (gameState.runnerActive) {
+                    createCoin();
+                }
+            }, 1500);
+        }
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            obstacle.innerHTML = '🌵';
+            document.getElementById('runnerGame').appendChild(obstacle);
+            
+            // Check collision
+            const collisionCheck = setInterval(() => {
+                const hamsterRect = document.getElementById('runnerHamster').getBoundingClientRect();
+                const obstacleRect = obstacle.getBoundingClientRect();
                 
-                if (hamster.progress >= 100) {
-                    clearInterval(miningInterval);
-                    const income = hamster.baseRate + (hamster.level - 1) * 10;
-                    const actualIncome = gameState.speedBoostActive ? Math.floor(income * 1.5) : income;
+                if (hamsterRect.left < obstacleRect.right && 
+                    hamsterRect.right > obstacleRect.left && 
+                    hamsterRect.top < obstacleRect.bottom && 
+                    hamsterRect.bottom > obstacleRect.top) {
                     
-                    if (button) {
-                        button.disabled = false;
-                        button.innerHTML = `Collect ${actualIncome}💰`;
-                    }
+                    gameOver();
+                    clearInterval(collisionCheck);
+                }
+                
+                // Remove obstacle when it goes off screen
+                if (obstacleRect.right < 0) {
+                    obstacle.remove();
+                    clearInterval(collisionCheck);
+                }
+            }, 50);
+        }
+
+        function createCoin() {
+            const coin = document.createElement('div');
+            coin.className = 'coin-runner';
+            coin.innerHTML = '🪙';
+            document.getElementById('runnerGame').appendChild(coin);
+            
+            // Check collection
+            const collectionCheck = setInterval(() => {
+                const hamsterRect = document.getElementById('runnerHamster').getBoundingClientRect();
+                const coinRect = coin.getBoundingClientRect();
+                
+                if (hamsterRect.left < coinRect.right && 
+                    hamsterRect.right > coinRect.left && 
+                    hamsterRect.top < coinRect.bottom && 
+                    hamsterRect.bottom > coinRect.top) {
+                    
+                    gameState.coins += 10;
+                    updateUI();
+                    coin.remove();
+                    clearInterval(collectionCheck);
                     
                     // Haptic feedback
                     if (tg && tg.HapticFeedback) {
                         tg.HapticFeedback.impactOccurred('light');
                     }
                 }
-            }, 500);
-        }
-
-        // Collect from hamster
-        function collectFromHamster(hamsterId, event) {
-            event.stopPropagation();
-            const hamster = gameState.hamsters.find(h => h.id === hamsterId);
-            if (!hamster || hamster.progress < 100) return;
-            
-            const income = hamster.baseRate + (hamster.level - 1) * 10;
-            const actualIncome = gameState.speedBoostActive ? Math.floor(income * 1.5) : income;
-            
-            gameState.coins += actualIncome;
-            gameState.totalEarned += actualIncome;
-            hamster.progress = 0;
-            
-            showNotification(`${hamster.name} earned ${actualIncome}💰!`);
-            showFloatingCoins(actualIncome, event.target);
-            
-            // Haptic feedback
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('medium');
-            }
-            
-            updateDisplay();
-            renderHamsters();
-            saveGame();
-        }
-
-        // Collect all ready hamsters
-        function collectAll() {
-            let totalCollected = 0;
-            let hamstersCollected = 0;
-            
-            gameState.hamsters.forEach(hamster => {
-                if (hamster.progress >= 100) {
-                    const income = hamster.baseRate + (hamster.level - 1) * 10;
-                    const actualIncome = gameState.speedBoostActive ? Math.floor(income * 1.5) : income;
-                    totalCollected += actualIncome;
-                    hamstersCollected++;
-                    hamster.progress = 0;
+                
+                // Remove coin when it goes off screen
+                if (coinRect.right < 0) {
+                    coin.remove();
+                    clearInterval(collectionCheck);
                 }
-            });
-            
-            if (totalCollected > 0) {
-                gameState.coins += totalCollected;
-                gameState.totalEarned += totalCollected;
-                showNotification(`💰 Collected ${totalCollected} coins from ${hamstersCollected} hamsters!`);
-                showFloatingCoins(totalCollected);
+            }, 50);
+        }
+
+        function jump() {
+            const hamster = document.getElementById('runnerHamster');
+            if (!hamster.classList.contains('jumping')) {
+                hamster.classList.add('jumping');
+                setTimeout(() => {
+                    hamster.classList.remove('jumping');
+                }, 600);
                 
                 // Haptic feedback
                 if (tg && tg.HapticFeedback) {
-                    tg.HapticFeedback.impactOccurred('heavy');
+                    tg.HapticFeedback.impactOccurred('medium');
                 }
+            }
+        }
+
+        function gameOver() {
+            gameState.runnerActive = false;
+            
+            clearInterval(runnerInterval);
+            clearInterval(obstacleInterval);
+            clearInterval(coinInterval);
+            
+            // Calculate rewards
+            const coinsEarned = Math.floor(gameState.runnerScore / 10);
+            gameState.coins += coinsEarned;
+            
+            // Update high score
+            if (gameState.runnerScore > gameState.highScore) {
+                gameState.highScore = gameState.runnerScore;
+                localStorage.setItem('hamster-high-score', gameState.highScore);
+                document.getElementById('highScore').textContent = gameState.highScore;
+            }
+            
+            // Show game over screen
+            document.getElementById('finalScore').textContent = gameState.runnerScore;
+            document.getElementById('coinsEarned').textContent = coinsEarned;
+            document.getElementById('gameOver').style.display = 'block';
+            
+            updateUI();
+        }
+
+        // PRIZES & ACHIEVEMENTS
+        function updatePrizes() {
+            // Update global pool (simulate growing)
+            const currentPool = parseInt(document.getElementById('globalPool').textContent);
+            document.getElementById('globalPool').textContent = currentPool + Math.floor(Math.random() * 10);
+            
+            // Update bonus timer
+            updateBonusTimer();
+            
+            // Update user rank (simulate)
+            const rank = Math.floor(Math.random() * 1000) + 1;
+            document.getElementById('userRank').textContent = rank;
+        }
+
+        function updateBonusTimer() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const diff = tomorrow - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('bonusTimer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function claimDaily() {
+            const lastLogin = localStorage.getItem('hamster-last-login');
+            const today = new Date().toDateString();
+            
+            if (lastLogin !== today) {
+                const reward = gameState.dailyLoginDay * 100;
+                gameState.coins += reward;
+                gameState.dailyLoginDay++;
                 
-                updateDisplay();
+                localStorage.setItem('hamster-last-login', today);
+                localStorage.setItem('hamster-login-day', gameState.dailyLoginDay);
+                
+                document.getElementById('loginDay').textContent = gameState.dailyLoginDay;
+                document.getElementById('dailyReward').textContent = gameState.dailyLoginDay * 100;
+                
+                updateUI();
+                alert(`🎉 Daily bonus claimed! +${reward} coins!`);
+            } else {
+                alert('❌ Already claimed today! Come back tomorrow.');
+            }
+        }
+
+        function joinTournament() {
+            alert('🏆 Tournament registration opening soon! Get ready to compete with players worldwide!');
+        }
+
+        function checkAchievements() {
+            let newAchievements = [];
+            
+            // Check first 1000 coins
+            if (gameState.coins >= 1000 && !gameState.achievements.first1000) {
+                gameState.achievements.first1000 = true;
+                gameState.coins += 100;
+                newAchievements.push('🎯 First 1,000 coins: +100🪙');
+            }
+            
+            // Check own 5 hamsters
+            if (gameState.hamsters.length >= 5 && !gameState.achievements.own5hamsters) {
+                gameState.achievements.own5hamsters = true;
+                gameState.coins += 500;
+                newAchievements.push('🎯 Own 5 hamsters: +500🪙');
+            }
+            
+            // Check spin wheel 10 times
+            if (gameState.achievements.spinCount >= 10 && !gameState.achievements.spin10times) {
+                gameState.achievements.spin10times = true;
+                gameState.hamsters.push({
+                    name: 'Golden',
+                    emoji: '🏆',
+                    rate: 200,
+                    earnings: 0,
+                    type: 'legendary'
+                });
                 renderHamsters();
-                saveGame();
+                newAchievements.push('🎯 Spin wheel 10 times: +Golden Hamster🏆');
+            }
+            
+            if (newAchievements.length > 0) {
+                alert('🎉 Achievements Unlocked:\n' + newAchievements.join('\n'));
+                updateUI();
             } else {
-                showNotification('⏰ No hamsters ready to collect!');
+                alert('🎯 Keep playing to unlock more achievements!\n\n' +
+                      `Progress:\n` +
+                      `• Coins: ${gameState.coins}/1000 ✅\n` +
+                      `• Hamsters: ${gameState.hamsters.length}/5 ${gameState.hamsters.length >= 5 ? '✅' : ''}\n` +
+                      `• Spins: ${gameState.achievements.spinCount}/10 ${gameState.achievements.spinCount >= 10 ? '✅' : ''}`);
             }
         }
 
-        // Speed boost
-        function speedBoost() {
-            if (gameState.coins >= 100 && !gameState.speedBoostActive) {
-                gameState.coins -= 100;
-                gameState.speedBoostActive = true;
-                gameState.speedBoostEnd = Date.now() + 30000; // 30 seconds
-                
-                showNotification('⚡ Speed boost activated for 30 seconds!');
-                
-                // Haptic feedback
-                if (tg && tg.HapticFeedback) {
-                    tg.HapticFeedback.impactOccurred('heavy');
-                }
-                
-                updateDisplay();
-                renderHamsters(); // Restart mining with boost
-                saveGame();
-            }
+        function updateUI() {
+            document.getElementById('coinCount').textContent = gameState.coins.toLocaleString();
+            document.getElementById('runnerScore').textContent = gameState.runnerScore;
+            document.getElementById('highScore').textContent = gameState.highScore;
+            renderShop();
         }
 
-        // Level up hamster
-        function levelUpHamster(hamsterId) {
-            const hamster = gameState.hamsters.find(h => h.id === hamsterId);
-            if (!hamster) return;
+        // Keyboard controls for runner
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && gameState.runnerActive) {
+                event.preventDefault();
+                jump();
+            }
+        });
+
+        // Touch controls
+        document.addEventListener('touchstart', function(event) {
+            if (gameState.runnerActive && event.target.closest('#runner')) {
+                jump();
+            }
+        });
+
+        // Auto-save game state
+        setInterval(() => {
+            localStorage.setItem('hamster-game-state', JSON.stringify(gameState));
+        }, 30000);
+
+        // Load saved game state
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('hamster-game-state');
+            if (saved) {
+                const savedState = JSON.parse(saved);
+                gameState = { ...gameState, ...savedState };
+                gameState.runnerActive = false; // Reset runner state
+            }
             
-            const cost = hamster.level * 100;
-            if (gameState.coins >= cost) {
-                gameState.coins -= cost;
-                hamster.level++;
-                
-                showNotification(`🎉 ${hamster.name} upgraded to level ${hamster.level}!`);
-                
-                // Haptic feedback
-                if (tg && tg.HapticFeedback) {
-                    tg.HapticFeedback.impactOccurred('heavy');
-                }
-                
-                updateDisplay();
-                renderHamsters();
-                saveGame();
+            const savedDay = localStorage.getItem('hamster-login-day');
+            if (savedDay) {
+                gameState.dailyLoginDay = parseInt(savedDay);
+                document.getElementById('loginDay').textContent = gameState.dailyLoginDay;
+                document.getElementById('dailyReward').textContent = gameState.dailyLoginDay * 100;
+            }
+        });
+
+        // Share functionality
+        function shareGame() {
+            if (tg && tg.shareUrl) {
+                tg.shareUrl('https://annam122.github.io/crypto-hamster-empire/', 
+                           '🐹 Join my Crypto Hamster Empire! Build your mining empire and earn crypto coins!');
             } else {
-                showNotification(`💰 Need ${cost} coins to upgrade ${hamster.name}!`);
+                alert('🐹 Share this game with friends: https://annam122.github.io/crypto-hamster-empire/');
             }
-        }
-
-        // Show notification
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Show floating coins
-        function showFloatingCoins(amount, element = null) {
-            const coin = document.createElement('div');
-            coin.className = 'floating-coins';
-            coin.textContent = `+${amount} 💰`;
-            
-            if (element) {
-                const rect = element.getBoundingClientRect();
-                coin.style.left = rect.left + 'px';
-                coin.style.top = rect.top + 'px';
-            } else {
-                coin.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-                coin.style.top = window.innerHeight * 0.5 + 'px';
-            }
-            
-            document.body.appendChild(coin);
-            
-            setTimeout(() => {
-                if (coin.parentNode) {
-                    coin.parentNode.removeChild(coin);
-                }
-            }, 2000);
-        }
-
-        // Initialize game
-        function initGame() {
-            initializeTelegram();
-            loadGame();
-            updateDebugInfo();
-            
-            // Update debug info every 5 seconds
-            setInterval(updateDebugInfo, 5000);
-            
-            // Update display every second
-            setInterval(updateDisplay, 1000);
-            
-            // Auto-save every 30 seconds
-            setInterval(saveGame, 30000);
-            
-            // Welcome message
-            setTimeout(() => {
-                showNotification('🎉 Welcome to Crypto Hamster Empire!');
-            }, 1500);
-        }
-
-        // Start the game when page loads
-        document.addEventListener('DOMContentLoaded', initGame);
-        
-        // Also start immediately in case DOMContentLoaded already fired
-        if (document.readyState === 'loading') {
-            // Document still loading, wait for DOMContentLoaded
-        } else {
-            // Document already loaded
-            initGame();
         }
     </script>
 </body>
